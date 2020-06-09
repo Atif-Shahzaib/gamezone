@@ -5,6 +5,7 @@ import {
 	TouchableOpacity,
 	Modal,
 	FlatList,
+	Button,
 	ImageBackground,
 } from "react-native";
 import styles from "../config/css";
@@ -14,20 +15,24 @@ import ReviewForm from "./reviewForm";
 export default function Home({ navigation }) {
 	const [modalOpen, setModelOpen] = useState(false);
 	const [data, setData] = useState([
-		{ key: "1", title: "buy coffee", rating: 5, body: "lorem" },
-		{ key: "2", title: "create an app", rating: 3, body: "lorem" },
-		{ key: "3", title: "get the degree", rating: 4, body: "lorem" },
-		{ key: "4", title: "bye", rating: 5, body: "lorem" },
+		{
+			key: "1",
+			title: "Hello",
+			rating: 3,
+			body: "Nothing to display",
+		},
 	]);
-	const pressHandler = () => {
-		navigation.push("ReviewDetails");
-	};
 	const addReview = (review) => {
 		review.key = Math.random().toString();
 		setData((currentReviews) => {
 			return [review, ...currentReviews];
 		});
 		setModelOpen(false);
+	};
+	const deleteReview = (key) => {
+		setData((prevData) => {
+			return prevData.filter((todo) => todo.key != key);
+		});
 	};
 	return (
 		<View style={styles.container}>
@@ -66,7 +71,20 @@ export default function Home({ navigation }) {
 							onPress={() => navigation.navigate("ReviewDetails", item)}
 						>
 							<Card>
-								<Text style={styles.item}>{item.title} </Text>
+								<View
+									style={{
+										flexDirection: "row",
+										justifyContent: "space-between",
+										alignItems: "center",
+									}}
+								>
+									<Text style={styles.item}>{item.title} </Text>
+									<Button
+										title="Delete"
+										color="coral"
+										onPress={() => deleteReview(item.key)}
+									/>
+								</View>
 							</Card>
 						</TouchableOpacity>
 					)}
