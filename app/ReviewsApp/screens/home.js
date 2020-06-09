@@ -31,41 +31,46 @@ export default function Home({ navigation }) {
 	};
 	return (
 		<View style={styles.container}>
-			<ImageBackground style={styles.backgroundImage} source={require("../assets/background.jpg")}>
-			<Modal visible={modalOpen}>
-				<View style={styles.addStuff}><Text>Add Stuff</Text></View>
-				<View style={styles.modalContent}>
-					<MaterialIcons
-						name="close"
-						size={24}
-						style={{ ...styles.modalToggle, ...styles.modalClose }}
-						onPress={() => {
-							setModelOpen(false);
-						}}
-					/>
-					<ReviewForm addReview={addReview} />
-				</View>
-			</Modal>
-			<MaterialIcons
-				name="add"
-				size={24}
-				style={styles.modalToggle}
-				onPress={() => {
-					setModelOpen(true);
-				}}
-			/>
-			<FlatList
-				data={data}
-				renderItem={({ item }) => (
-					<TouchableOpacity
-						onPress={() => navigation.navigate("ReviewDetails", item)}
-					>
-						<Card>
-							<Text style={styles.item}>{item.title} </Text>
-						</Card>
-					</TouchableOpacity>
-				)}
-			/>
+			<ImageBackground
+				style={styles.backgroundImage}
+				source={require("../assets/background.jpg")}
+			>
+				<Modal visible={modalOpen}>
+					<View style={styles.addStuff}>
+						<Text>Add Stuff</Text>
+					</View>
+					<View style={styles.modalContent}>
+						<MaterialIcons
+							name="close"
+							size={24}
+							style={{ ...styles.modalToggle, ...styles.modalClose }}
+							onPress={() => {
+								setModelOpen(false);
+							}}
+						/>
+						<ReviewForm addReview={addReview} />
+					</View>
+				</Modal>
+				<MaterialIcons
+					name="add"
+					size={24}
+					style={styles.modalToggle}
+					onPress={() => {
+						setModelOpen(true);
+					}}
+				/>
+				<FlatList
+					data={data}
+					renderItem={({ item }) => (
+						<TouchableOpacity
+							onPress={() => navigation.navigate("ReviewDetails", item)}
+						>
+							<Card>
+								<Text style={styles.item}>{item.title} </Text>
+							</Card>
+						</TouchableOpacity>
+					)}
+				/>
 			</ImageBackground>
 		</View>
 	);
